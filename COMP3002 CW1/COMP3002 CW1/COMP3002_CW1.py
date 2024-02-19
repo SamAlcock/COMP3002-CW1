@@ -27,14 +27,19 @@ arr = [1, 2, 3]
 # all_permutations_1b(arr)
 
 # Q1c LCM and GCD
-def lcm_gcd_1c(x, y):
-    if y == 0:
-        print("GCD = " + str(x))
-        return x
+def lcm_gcd_1c(nums):
+    if len(nums) <= 1:
+        return nums
+    elif nums[0] == 0:
+        return lcm_gcd_1c(nums[1:])
     else:
-        return lcm_gcd_1c(y, x % y)
 
-print(lcm_gcd_1c(9, 21))
+        nums[1] = nums[1] % nums[0]
+        nums[0], nums[1] = nums[1], nums[0]
+        return lcm_gcd_1c(nums)
+
+nums = [46, 64, 578]
+print("GCD = " + str(lcm_gcd_1c(nums)))
 # Q1d Decimal to binary
 
 def decimal_binary_1d(num):

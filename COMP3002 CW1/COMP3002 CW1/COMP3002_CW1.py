@@ -26,8 +26,8 @@ def all_permutations_1b(arr, idx): # Need to make a proper break condition - cur
     
     return all_permutations_1b(arr, idx + 1)
 
-arr = [1, 2, 3]
-all_permutations_1b(arr, 0)
+arr = [1, 2, 3, 4]
+#all_permutations_1b(arr, 0)
 
 # Q1c LCM and GCD
 def lcm_gcd_1c(nums):
@@ -42,6 +42,7 @@ def lcm_gcd_1c(nums):
 
 nums = [46, 64, 578, 468, 18, 32]
 print("GCD = " + str(lcm_gcd_1c(nums)))
+
 # Q1d Decimal to binary
 
 def decimal_binary_1d(num):
@@ -51,3 +52,18 @@ def decimal_binary_1d(num):
         return str(decimal_binary_1d(num // 2)) + str(num % 2)
 
 print(decimal_binary_1d(52))
+
+# Q1e Randomised Quick-Sort
+import random 
+def quick_sort_1e(arr):
+    if len(arr) <= 1:
+        return arr
+    
+    pivot_idx = random.randint(0, len(arr) - 1)
+    less = [x for x in arr if x < arr[pivot_idx]]
+    equal = [x for x in arr if x == arr[pivot_idx]]
+    greater = [x for x in arr if x > arr[pivot_idx]]
+    return quick_sort_1e(less) + equal + quick_sort_1e(greater)
+        
+arr = [5, 6, 14, 1, 84, 3, 5, 1, 43536, 234, 123, 4, 1, 8, 0, 4, 15]
+print(quick_sort_1e(arr))

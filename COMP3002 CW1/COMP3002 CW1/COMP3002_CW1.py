@@ -1,4 +1,8 @@
 # Q1a Pallidrome
+# The solution for 1a works by firstly having a base case that checks if the length of the input is less than or equal to 1. If the word length is 0 or 1, then the word is always a
+# pallindrome. If the conditions for this are not fufilled, then the recursion case checks for whether the first and last character of the word are the same. If this is true, then a
+# recursive call is made. If this is not true, then the input word cannot be a pallindrome, so false is returned. The function will eventually return the final result when the word
+# is broken down into 0 or 1 character. The computational complexity of this function is O(n).
 
 def pallindrome_q1a(word):
     if len(word) <= 1:
@@ -16,18 +20,18 @@ else:
 
 # Q1b Generate all possible permutations of an array
 
-def all_permutations_1b(arr, idx): # Need to make a proper break condition - currently running forever
-    if len(arr) <= 1:
-        return arr
-    if idx >= len(arr) - 1:
-        idx = 0
-    print(arr)
-    arr[idx], arr[idx + 1] = arr[idx + 1], arr[idx]
-    
-    return all_permutations_1b(arr, idx + 1)
 
+def all_permutations_1b(arr): # Need to make a proper break condition - currently running forever
+    print(arr)
+    if len(arr) <= 2:
+        return arr
+
+    arr[0], arr[-1] = arr[-1], arr[0]
+    
+    return [arr[0]] + all_permutations_1b([arr[len(arr)//2 - 1], arr[len(arr)//2]]) + [arr[-1]]
 arr = [1, 2, 3, 4]
-#all_permutations_1b(arr, 0)
+
+all_permutations_1b(arr)
 
 # Q1c LCM and GCD
 def lcm_gcd_1c(nums):
@@ -44,7 +48,9 @@ nums = [46, 64, 578, 468, 18, 32]
 print("GCD = " + str(lcm_gcd_1c(nums)))
 
 # Q1d Decimal to binary
-
+# The solution for 1d works by firstly having a base case that cheks for whether the input number is 0 or 1. If this is the case, then the decimal number is already the same as it would be
+# in binary, so that can be returned as is. If this is not true, then the recursive case performs a recursive call with the input number, with a floor division of 2. The remainder is
+# appended to the final result. This function will eventually return the final result once num has divided down to 0 or 1. The computational complexity of this function is O(log n)
 def decimal_binary_1d(num):
     if num == 0 or num == 1:
         return num
@@ -54,6 +60,10 @@ def decimal_binary_1d(num):
 print(decimal_binary_1d(52))
 
 # Q1e Randomised Quick-Sort
+# The solution for 1e works by firstly having a base case that checks for whether the length of the input array is 0 or 1. If this is the case, then the array is already sorted and can be
+# returned. If this is not the case then a pivot is chose at random, and three arrays are created using list comprehension. Values in these three lists are based on whether they are less
+# than, equal to, or greater than the pivot value. A recursive call is then made to sort both the less than and greater than lists. The sorted list will eventually be returned when the length
+# of an input array is less than or equal to 1. The computational complexity of this solution is - 
 import random 
 def quick_sort_1e(arr):
     if len(arr) <= 1:
@@ -65,5 +75,17 @@ def quick_sort_1e(arr):
     greater = [x for x in arr if x > arr[pivot_idx]]
     return quick_sort_1e(less) + equal + quick_sort_1e(greater)
         
-arr = [5, 6, 14, 1, 84, 3, 5, 1, 43536, 234, 123, 4, 1, 8, 0, 4, 15]
+arr = [5, 6, 14, 1, 84, 3, 5, 1]
 print(quick_sort_1e(arr))
+
+# Q1f Bubble sort
+
+def bubble_sort_1f(arr):
+    if len(arr) <= 1:
+        return arr
+
+    arr = [x for x in arr if x < arr[0]]
+    print(arr)
+    return bubble_sort_1f(arr)
+
+print(bubble_sort_1f(arr))

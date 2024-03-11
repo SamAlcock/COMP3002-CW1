@@ -4,6 +4,9 @@
 # recursive call is made. If this is not true, then the input word cannot be a pallindrome, so false is returned. The function will eventually return the final result when the word
 # is broken down into 0 or 1 character. The computational complexity of this function is O(n).
 
+from itertools import permutations
+
+
 def pallindrome_q1a(word):
     if len(word) <= 1:
         return True
@@ -23,15 +26,17 @@ else:
 
 def all_permutations_1b(arr): # Need to make a proper break condition - currently running forever
     print(arr)
-    if len(arr) <= 2:
+    if len(arr) <= 1:
         return arr
+    for i in range(len(arr)):
 
-    arr[0], arr[-1] = arr[-1], arr[0]
+        arr[0], arr[i] = arr[i], arr[0]
+        print(arr)
     
-    return [arr[0]] + all_permutations_1b([arr[len(arr)//2 - 1], arr[len(arr)//2]]) + [arr[-1]]
+        return [arr[0]] + all_permutations_1b(arr[1:])
 arr = [1, 2, 3, 4]
 
-all_permutations_1b(arr)
+print(all_permutations_1b(arr))
 
 # Q1c LCM and GCD
 def lcm_gcd_1c(nums):
@@ -89,3 +94,30 @@ def bubble_sort_1f(arr):
     return bubble_sort_1f(arr)
 
 print(bubble_sort_1f(arr))
+
+
+# Q3 Monadic type
+def unit(num1 , num2):
+    return(num1, num2, "Ops: ")
+
+def bind(t, f):
+    res = f(t[0], t[1])
+    return (res[0], t[-1] + res[1] + ";")
+
+def add(num1, num2):
+    return (num1 + num2, str(num1) + " + " + str(num2))
+
+def subtract(num1, num2):
+    return(num1 - num2, str(num1) + " - " + str(num2))
+
+def multiply(num1, num2):
+    return(num1 * num2, str(num1) + " * " + str(num2))
+
+def divide(num1, num2):
+    if num1 == 0 or num2 == 0:
+        return (1, "error")
+    else:
+        return(num1/num2, str(num1) + " / " + str(num2))
+
+
+print(bind(unit(5, 2), divide))

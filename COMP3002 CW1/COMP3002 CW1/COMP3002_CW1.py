@@ -5,6 +5,7 @@
 # is broken down into 0 or 1 character. The computational complexity of this function is O(n).
 
 from itertools import permutations
+from math import lcm
 
 
 def pallindrome_q1a(word):
@@ -43,17 +44,38 @@ print(all_permutations_1b(arr))
 
 # Q1c LCM and GCD
 def lcm_gcd_1c(nums):
-    if len(nums) <= 1:
-        return nums
-    elif nums[0] == 0:
-        return lcm_gcd_1c(nums[1:])
-    else:
-        nums[1] = nums[1] % nums[0]
-        nums[0], nums[1] = nums[1], nums[0]
-        return lcm_gcd_1c(nums)
+    nums_copy = nums.copy()
+    def gcd(nums):
+        if len(nums) <= 1:
+            return nums
+        elif nums[0] == 0:
+            return gcd(nums[1:])
+        else:
+            nums[1] = nums[1] % nums[0]
+            nums[0], nums[1] = nums[1], nums[0]
+            return gcd(nums)
+    
+    def lcm(arr, gcdenom):
+        if len(arr) == 2:
+            return arr[0] * arr[1] // gcdenom
+        lcm_pair = arr[0] * arr[1] // gcdenom
+        return lcm([lcm_pair] + arr[2:], gcdenom)
 
-nums = [46, 64, 578, 468, 18, 32]
-print("GCD = " + str(lcm_gcd_1c(nums)))
+
+
+    gcdenom = gcd(nums)
+    lcmul = lcm(nums_copy, gcdenom[0])
+
+
+    return lcmul, gcdenom
+
+    
+
+
+nums = [2, 4, 10, 8]
+
+l, g = lcm_gcd_1c(nums)
+print("LCM = " + str(l) + ", GCD = " + str(g))
 
 # Q1d Decimal to binary
 # The solution for 1d works by firstly having a base case that cheks for whether the input number is 0 or 1. If this is the case, then the decimal number is already the same as it would be

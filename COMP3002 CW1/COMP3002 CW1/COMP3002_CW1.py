@@ -24,17 +24,20 @@ else:
 # Q1b Generate all possible permutations of an array
 
 
-def all_permutations_1b(arr): # Need to make a proper break condition - currently running forever
-    print(arr)
+def all_permutations_1b(arr):
     if len(arr) <= 1:
         return arr
+    result = []
     for i in range(len(arr)):
+        arr_copy = arr.copy()
+        arr_copy[0], arr_copy[i] = arr_copy[i], arr_copy[0]
+        permutations = all_permutations_1b(arr_copy[1:])
+        for j in range(len(permutations)):
+            result.append(str(arr_copy[0]) + str(permutations[j]))
 
-        arr[0], arr[i] = arr[i], arr[0]
-        print(arr)
     
-        return [arr[0]] + all_permutations_1b(arr[1:])
-arr = [1, 2, 3, 4]
+    return result
+arr = [1, 2, 3, 4, 5]
 
 print(all_permutations_1b(arr))
 

@@ -127,38 +127,58 @@ print(bubble_sort_1f(arr))
 
 # Q3 Monadic type
 import math;
+def q3_monads():
+    dictionary = {}
+    def unit(num1 , num2):
+        return(num1, num2, "Ops: ")
 
-def unit(num1 , num2):
-    return(num1, num2, "Ops: ")
-
-def bind(t, f):
-    res = f(t[0], t[1])
-    return (res[0], t[-1] + res[1] + ";")
-
-
-def add(num1, num2):
-    return (num1 + num2, str(num1) + " + " + str(num2))
-
-def subtract(num1, num2):
-    return(num1 - num2, str(num1) + " - " + str(num2))
-
-def multiply(num1, num2):
-    return(num1 * num2, str(num1) + " * " + str(num2))
-
-def divide(num1, num2):
-    if num1 == 0 or num2 == 0:
-        return (1, "error")
-    else:
-        return(num1/num2, str(num1) + " / " + str(num2))
-
-def f_sin(num1, num2):
-    return (math.sin(num1), "sin(" + str(num1) + ")")
-
-def f_cos(num1, num2):
-    return (math.cos(num1), "cos(" + str(num1) + ")")
-
-def f_sqrt(num1, num2):
-    return (math.sqrt(num1), "sqrt(" + str(num1) + ")")
+    def bind(t, f):
+        res = f(t[0], t[1])
+        return (res[0], t[-1] + res[1] + ";")
 
 
-print(bind(unit(5, 2), f_cos))
+    def add(num1, num2):
+        m = (num1 + num2, str(num1) + " + " + str(num2))
+        add_to_dictionary(m)
+        return m
+
+    def subtract(num1, num2):
+        m = (num1 - num2, str(num1) + " - " + str(num2))
+        add_to_dictionary(m)
+        return m
+
+    def multiply(num1, num2):
+        m = (num1 * num2, str(num1) + " * " + str(num2))
+        add_to_dictionary(m)
+        return m
+
+    def divide(num1, num2):
+        if num1 == 0 or num2 == 0:
+            m = (1, "error")
+            add_to_dictionary(m)
+        else:
+            m = (num1/num2, str(num1) + " / " + str(num2))
+        return m 
+
+    def f_sin(num1, num2):
+        m = (math.sin(num1), "sin(" + str(num1) + ")")
+        add_to_dictionary(m)
+        return m
+
+    def f_cos(num1, num2):
+        m = (math.cos(num1), "cos(" + str(num1) + ")")
+        add_to_dictionary(m)
+        return m
+
+    def f_sqrt(num1, num2):
+        m = (math.sqrt(num1), "sqrt(" + str(num1) + ")")
+        add_to_dictionary(m)
+        return m
+
+    def add_to_dictionary(m):
+        dictionary[m[1]] = str(m[0])
+
+    print(bind(unit(5, 2), f_cos))
+    print(dictionary)
+
+q3_monads()

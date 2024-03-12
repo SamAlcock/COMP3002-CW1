@@ -105,7 +105,7 @@ def quick_sort_1e(arr):
     greater = [x for x in arr if x > arr[pivot_idx]]
     return quick_sort_1e(less) + equal + quick_sort_1e(greater)
         
-arr = [5, 6, 14, 1, 84, 3, 5, 1]
+arr = [2,6,2,4,7,8,6]
 print(quick_sort_1e(arr))
 
 # Q1f Bubble sort
@@ -114,20 +114,27 @@ def bubble_sort_1f(arr):
     if len(arr) <= 1:
         return arr
 
-    arr = [x for x in arr if x < arr[0]]
-    print(arr)
-    return bubble_sort_1f(arr)
+    for i in range(len(arr)):
+        if arr[0] > arr[i]:
+            arr[0], arr[i] = arr[i], arr[0]
+
+
+    return [arr[0]] + bubble_sort_1f(arr[1:])
+
 
 print(bubble_sort_1f(arr))
 
 
 # Q3 Monadic type
+import math;
+
 def unit(num1 , num2):
     return(num1, num2, "Ops: ")
 
 def bind(t, f):
     res = f(t[0], t[1])
     return (res[0], t[-1] + res[1] + ";")
+
 
 def add(num1, num2):
     return (num1 + num2, str(num1) + " + " + str(num2))
@@ -144,5 +151,14 @@ def divide(num1, num2):
     else:
         return(num1/num2, str(num1) + " / " + str(num2))
 
+def f_sin(num1, num2):
+    return (math.sin(num1), "sin(" + str(num1) + ")")
 
-print(bind(unit(5, 2), divide))
+def f_cos(num1, num2):
+    return (math.cos(num1), "cos(" + str(num1) + ")")
+
+def f_sqrt(num1, num2):
+    return (math.sqrt(num1), "sqrt(" + str(num1) + ")")
+
+
+print(bind(unit(5, 2), f_cos))

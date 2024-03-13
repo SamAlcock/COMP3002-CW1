@@ -47,7 +47,7 @@ print(all_permutations_1b(arr))
 # first element in the array is 0. If this is the case, a common denominator has been found. The element needs to be removed to avoid division by 0 and so that the next element can be used. 
 # If neither of these conditions are fufilled, then the second element becomes the modulo of the first and second element, and are then swapped. A recursive call is then made. Once the GCD has
 # been found, the LCM is found by finding the GCD of two elements at a time, and then using that to divide the result of the LCM of the pair of values, multiplied by the next element in the array.
-# The computational complexity of this solution is O()
+# The computational complexity of this solution is O().
 def lcm_gcd_1c(nums):
     nums_copy = nums.copy()
     def gcd(nums):
@@ -163,10 +163,11 @@ def q3_monads():
 
     def divide(num1, num2):
         if num1 == 0 or num2 == 0:
-            m = (1, "error")
-            add_to_dictionary(m)
+            m = (1, "error, can't divide by 0")
+            
         else:
             m = (num1/num2, str(num1) + " / " + str(num2))
+        add_to_dictionary(m)
         return m 
 
     def f_sin(num1, num2):
@@ -187,7 +188,7 @@ def q3_monads():
     def add_to_dictionary(m):
         dictionary[m[1]] = str(m[0])
 
-    print((bind(unit(5, 2), add)))
+    print((bind(unit(9, 2), f_sqrt)))
     print(dictionary)
 
 q3_monads()

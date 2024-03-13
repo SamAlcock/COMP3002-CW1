@@ -4,9 +4,6 @@
 # recursive call is made. If this is not true, then the input word cannot be a pallindrome, so false is returned. The function will eventually return the final result when the word
 # is broken down into 0 or 1 character. The computational complexity of this function is O(n).
 
-from itertools import permutations
-from math import lcm
-
 
 def pallindrome_q1a(word):
     if len(word) <= 1:
@@ -38,7 +35,7 @@ def all_permutations_1b(arr):
 
     
     return result
-arr = [1, 2, 3, 4, 5]
+arr = [1, 2, 3, 4]
 
 print(all_permutations_1b(arr))
 
@@ -55,16 +52,16 @@ def lcm_gcd_1c(nums):
             nums[0], nums[1] = nums[1], nums[0]
             return gcd(nums)
     
-    def lcm(arr, gcdenom):
-        if len(arr) == 2:
-            return arr[0] * arr[1] // gcdenom
-        lcm_pair = arr[0] * arr[1] // gcdenom
-        return lcm([lcm_pair] + arr[2:], gcdenom)
+    def lcm(arr):
 
-
+        lcms = arr[0]
+        for i in range(len(arr) - 1):
+            gcdenom = gcd([lcms, arr[i + 1]]) 
+            lcms = lcms * arr[i + 1] // gcdenom[0]
+        return lcms
 
     gcdenom = gcd(nums)
-    lcmul = lcm(nums_copy, gcdenom[0])
+    lcmul = lcm(nums_copy)
 
 
     return lcmul, gcdenom
@@ -72,13 +69,13 @@ def lcm_gcd_1c(nums):
     
 
 
-nums = [2, 4, 10, 8]
+nums = [6, 12, 36]
 
 l, g = lcm_gcd_1c(nums)
 print("LCM = " + str(l) + ", GCD = " + str(g))
 
 # Q1d Decimal to binary
-# The solution for 1d works by firstly having a base case that cheks for whether the input number is 0 or 1. If this is the case, then the decimal number is already the same as it would be
+# The solution for 1d works by firstly having a base case that checks for whether the input number is 0 or 1. If this is the case, then the decimal number is already the same as it would be
 # in binary, so that can be returned as is. If this is not true, then the recursive case performs a recursive call with the input number, with a floor division of 2. The remainder is
 # appended to the final result. This function will eventually return the final result once num has divided down to 0 or 1. The computational complexity of this function is O(log n)
 def decimal_binary_1d(num):
@@ -129,13 +126,12 @@ print(bubble_sort_1f(arr))
 import math;
 def q3_monads():
     dictionary = {}
-    def unit(num1 , num2):
+    def unit(num1, num2):
         return(num1, num2, "Ops: ")
 
     def bind(t, f):
         res = f(t[0], t[1])
         return (res[0], t[-1] + res[1] + ";")
-
 
     def add(num1, num2):
         m = (num1 + num2, str(num1) + " + " + str(num2))
@@ -178,7 +174,7 @@ def q3_monads():
     def add_to_dictionary(m):
         dictionary[m[1]] = str(m[0])
 
-    print(bind(unit(5, 2), f_cos))
+    print((bind(unit(5, 2), add)))
     print(dictionary)
 
 q3_monads()
